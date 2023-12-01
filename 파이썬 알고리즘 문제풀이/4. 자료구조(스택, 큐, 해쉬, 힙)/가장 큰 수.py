@@ -28,6 +28,6 @@ for x in num:
         stack.pop()
         m -= 1
     stack.append(x)
-if m >이 0:
+if m > 0:
     stack = stack[:-m]
 print("".join(map(str, stack)))
