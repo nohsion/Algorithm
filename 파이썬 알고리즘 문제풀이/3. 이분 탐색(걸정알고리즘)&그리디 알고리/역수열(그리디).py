@@ -17,7 +17,6 @@ tmp = [0] * n
 # for t in tmp:
 #   print(t, end=' ')
 
-
 # 모범 풀이 (good..)
 for i in range(n):
   for j in range(n):
