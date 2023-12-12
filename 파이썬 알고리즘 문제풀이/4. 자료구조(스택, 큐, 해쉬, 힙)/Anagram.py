@@ -9,11 +9,11 @@ b = input()
 def is_anagram(a: str, b: str) -> bool:
     if len(a) != len(b):
         return False
-    a_dict = defaultdict(int)
-    b_dict = defaultdict(int)
+    a_dict = {}
+    b_dict = {}
     for i in range(len(a)):
-        a_dict[a[i]] += 1
-        b_dict[b[i]] += 1
+        a_dict[a[i]] = a_dict.get(a[i], 0) + 1
+        b_dict[b[i]] = b_dict.get(b[i], 0) + 1
     if a_dict == b_dict:
         return True
     else:
