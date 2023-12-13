@@ -2,13 +2,13 @@
 # 단, 재귀함수를 사용하여야 합니다.
 # n = int(input())
 
-a = []
-def decimal_to_binary(n: int):
-    if n == 0:
-        return n
-    a.append(n % 2)
-    decimal_to_binary(n // 2)
+
+def dfs(x: int):
+    if x == 0:
+        return
+    dfs(x//2)
+    print(x % 2, end='')  # 중요: 출력 순서를 거꾸로 하려면 dfs 함수 다음에 호출하도록 하면 됨
 
 
-decimal_to_binary(11)
-print(a[::-1])
+if __name__ == '__main__':
+    dfs(11)
