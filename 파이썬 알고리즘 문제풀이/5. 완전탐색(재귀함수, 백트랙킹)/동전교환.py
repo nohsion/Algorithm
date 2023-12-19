@@ -1,8 +1,8 @@
 # 거스름돈을 가장 적은 수의 동전으로 교환해주자.
 """
-        0
-  1     2     5
-1 2 5 1 2 5 1 2 5
+        0           :D(0)
+  1     2     5     :D(1)
+1 2 5 1 2 5 1 2 5   :D(2)
 """
 
 
@@ -20,7 +20,7 @@ def dfs(i, x_sum):
 
 if __name__ == '__main__':
     n = int(input())
-    coins = list(map(int, input().split()))
+    coins = sorted(list(map(int, input().split())), reverse=True)
     m = int(input())
     res = 2147000
     dfs(0, 0)
