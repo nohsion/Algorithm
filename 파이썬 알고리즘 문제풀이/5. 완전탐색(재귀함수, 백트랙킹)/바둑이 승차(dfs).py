@@ -5,28 +5,29 @@
     81
   58   58
 42 42 42 42
+
+                   D(0,0,81)
+      D(1,81,139)              D(1,0,139)
+D(2,139,181) D(2,81,181) D(2,58,181) D(2,0,181)
 """
 
 
-def dfs(i, x_sum, t_sum):
+def dfs(i, w_sum, t_sum):
     global res
-    if x_sum > c:
-        return
-    # 중요: (수학적 계산) 현재 합계에 밑에 더할 애들을 더해봐도 현재 최대 합보다 작더라. 그러면 뭐하러 더하냐. cut! (Cut Edge)
-    if x_sum + (total - t_sum) < res:
+    if w_sum > c or w_sum + (total - t_sum) < res:  # 현재 값에서 나머지를 다 더해도 안되면 지금 끝내자..
         return
     if i == n:
-        if x_sum > res:
-            res = x_sum
+        if res < w_sum < c:
+            res = w_sum
         return
-    dfs(i+1, x_sum + weight[i], t_sum + weight[i])
-    dfs(i+1, x_sum, t_sum + weight[i])
+    dfs(i + 1, w_sum + weight[i], t_sum + weight[i])
+    dfs(i + 1, w_sum, t_sum + weight[i])
 
 
 if __name__ == '__main__':
     c, n = map(int, input().split())
     weight = [int(input()) for _ in range(n)]
-    res = -1
     total = sum(weight)
+    res = 0
     dfs(0, 0, 0)
     print(res)
