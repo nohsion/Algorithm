@@ -15,25 +15,25 @@ def dfs_pre(v):
     if v > 7:
         return
     print(v, end='')
-    dfs_pre(v*2)  # 왼쪽 자식 노드
-    dfs_pre(v*2+1)  # 오른쪽 자식 노드
+    dfs_pre(v * 2)
+    dfs_pre(v * 2 + 1)
 
 
 # 중위순회
 def dfs_in(v):
     if v > 7:
         return
-    dfs_in(v*2)  # 왼쪽 자식 노드
+    dfs_in(v * 2)
     print(v, end='')
-    dfs_in(v*2+1)  # 오른쪽 자식 노드
+    dfs_in(v * 2 + 1)
 
 
 # 후위순회 (ex. merge sort)
 def dfs_post(v):
     if v > 7:
         return
-    dfs_post(v*2)  # 왼쪽 자식 노드
-    dfs_post(v*2+1)  # 오른쪽 자식 노드
+    dfs_post(v * 2)
+    dfs_post(v * 2 + 1)
     print(v, end='')
 
 
