@@ -16,15 +16,13 @@ import sys
 
 
 def dfs(L, x_sum):
-    if x_sum > total // 2:
-        return
     if L == n:
-        if x_sum == total - x_sum:
-            print("YES")
+        if x_sum * 2 == total:
+            print('YES')
             sys.exit(0)
         return
-    dfs(L + 1, x_sum + a[L])  # 왼쪽 자식 노드 (사용 O)
-    dfs(L + 1, x_sum)  # 오른쪽 자식 노드 (사용 X)
+    dfs(L + 1, x_sum + a[L])
+    dfs(L + 1, x_sum)
 
 
 if __name__ == '__main__':
@@ -32,4 +30,4 @@ if __name__ == '__main__':
     a = list(map(int, input().split()))
     total = sum(a)
     dfs(0, 0)
-    print("NO")
+    print('NO')
