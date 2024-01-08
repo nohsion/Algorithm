@@ -14,19 +14,19 @@ n = 3 일때, 2^3 = 8 가지가 존재한다.
 
 
 def dfs(x):
-    if x == n+1:
-        for i, a in enumerate(ch):
-            if a == 1:
+    if x > n:
+        for i, v in enumerate(ch):
+            if v == 1:
                 print(i, end=' ')
         print()
         return
     ch[x] = 1
-    dfs(x+1)
+    dfs(x + 1)
     ch[x] = 0
-    dfs(x+1)
+    dfs(x + 1)
 
 
 if __name__ == '__main__':
     n = int(input())
-    ch = [0] * (n + 1)  # 상태트리의 상태를 저장하기 위한 리스트
+    ch = [0] * (n + 1)
     dfs(1)
