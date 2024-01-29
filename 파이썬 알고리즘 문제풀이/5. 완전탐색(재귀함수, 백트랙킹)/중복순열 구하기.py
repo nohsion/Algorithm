@@ -4,9 +4,9 @@
 def dfs(L):
     global cnt
     if L == m:
+        cnt += 1
         for x in res:
             print(x, end=' ')
-        cnt += 1
         print()
         return
     for i in range(1, n+1):
@@ -15,7 +15,7 @@ def dfs(L):
 
 
 if __name__ == '__main__':
-    n, m = map(int, input().split())
+    n, m = map(int, input().split())  # 3 2
     res = [0] * m
     cnt = 0
     dfs(0)
