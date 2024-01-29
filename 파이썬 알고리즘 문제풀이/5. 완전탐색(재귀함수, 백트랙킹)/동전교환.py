@@ -19,10 +19,9 @@ def dfs(i, x_sum):
 
 
 if __name__ == '__main__':
-    n = int(input())
-    coins = sorted(list(map(int, input().split())), reverse=True)
-    m = int(input())
+    n = int(input())  # 3
+    coins = sorted(list(map(int, input().split())), reverse=True)  # 1 2 5
+    m = int(input())  # 15
     res = 2147000
     dfs(0, 0)
     print(res)
-
