@@ -3,3 +3,4 @@ venv
 .replit
 poetry.lock
 pyproject.toml
+.DS_Store
