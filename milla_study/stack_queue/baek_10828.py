@@ -1,9 +1,11 @@
 # https://www.acmicpc.net/problem/10828
+from sys import stdin
 
-n = int(input())
+
+n = int(stdin.readline())
 stack = []
 for _ in range(n):
-    cmd = input().split()
+    cmd = stdin.readline().split()
     if cmd[0] == 'push':
         stack.append(int(cmd[1]))
     elif cmd[0] == 'pop':
