@@ -1,14 +1,19 @@
 # https://www.acmicpc.net/problem/11724
 import sys
+from collections import deque
 sys.setrecursionlimit(50_000)
 
 
-def dfs(x):
+def bfs(x):
     global visited
+    queue = deque([x])
     visited[x] = 1
-    for i in range(1, n+1):
-        if visited[i] == 0 and graph[x][i] == 1:
-            dfs(i)
+    while queue:
+        q = queue.popleft()
+        for i in range(1, n+1):
+            if visited[i] == 0 and graph[q][i] == 1:
+                visited[i] = 1
+                queue.append(i)
 
 
 if __name__ == '__main__':
@@ -24,7 +29,7 @@ if __name__ == '__main__':
     cnt = 0
     for i in range(1, n+1):
         if visited[i] == 0:
-            dfs(i)
+            bfs(i)
             cnt += 1
 
     print(cnt)
