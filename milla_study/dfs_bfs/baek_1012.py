@@ -1,18 +1,23 @@
 # https://www.acmicpc.net/problem/1012
 import sys
+from collections import deque
 sys.setrecursionlimit(50_000)
 
 
-def dfs(x, y):
-    if x < 0 or y < 0 or x > n-1 or y > m-1:
-        return
-
-    if graph[x][y] == 1:
-        graph[x][y] = 0  # 방문 처리
+def bfs(x, y):
+    queue = deque([(x, y)])
+    graph[x][y] = 0
+    while queue:
+        qx, qy = queue.popleft()
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            dfs(nx, ny)
+            nx = qx + dx[i]
+            ny = qy + dy[i]
+            if nx < 0 or ny < 0 or nx > n-1 or ny > m-1:
+                continue
+            if graph[nx][ny] == 1:
+                # 큐에 넣으면서, 방문 처리
+                graph[nx][ny] = 0
+                queue.append((nx, ny))
 
 
 dx = [0, 0, 1, -1]
@@ -32,6 +37,6 @@ if __name__ == '__main__':
         for i in range(n):
             for j in range(m):
                 if graph[i][j] == 1:
-                    dfs(i, j)
+                    bfs(i, j)
                     cnt += 1
         print(cnt)
