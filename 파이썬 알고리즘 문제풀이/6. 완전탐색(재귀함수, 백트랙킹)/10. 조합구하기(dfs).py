@@ -18,16 +18,12 @@ def dfs(L, s):
         cnt += 1
         return
     for i in range(s, n+1):
-        if ch[i] == 0:
-            ch[i] = 1  # 사용여부 체크
-            res[L] = i
-            dfs(L+1, i+1)
-            ch[i] = 0  # back 했으니까, 사용 체크 풀어줘야 한다.
+        res[L] = i
+        dfs(L+1, i+1)
 
 
 if __name__ == '__main__':
     n, m = map(int, input().split())
-    ch = [0] * (n+1)
     res = [0] * m
     cnt = 0
     dfs(0, 1)
