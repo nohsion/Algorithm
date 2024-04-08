@@ -6,13 +6,18 @@ def dfs(x):
     global cnt
     if x == n:
         cnt += 1
+        print(path)
         return
     for i in range(1, n+1):
         # 아직 방문하지 않았는데 연결되어 있다면
         if graph[x][i] == 1 and ch[i] == 0:
             ch[i] = 1
+            path.append(i)
+            # ====
             dfs(i)
+            # ====
             ch[i] = 0
+            path.pop()
 
 
 if __name__ == '__main__':
@@ -24,5 +29,6 @@ if __name__ == '__main__':
         graph[i][j] = 1
     cnt = 0
     ch[1] = 1  # 초기화 중요
+    path = [1]  # 경로 저장용
     dfs(1)
     print(cnt)
