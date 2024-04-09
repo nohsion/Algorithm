@@ -46,7 +46,7 @@ if __name__ == '__main__':
     graph = []  # 7*7 격자판 그래프
     for _ in range(N):
         graph.append(list(map(int, input().split())))
-    visited = [[0] * N for _ in range(N)]  # 방문여부 체크
+    # visited = [[0] * N for _ in range(N)]  # 방문여부 체크
     dis = [[-1] * N for _ in range(N)]  # 거리 저장용
     bfs(0, 0)
     print(dis[N-1][N-1])
