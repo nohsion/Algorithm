@@ -19,23 +19,22 @@
 from collections import deque
 
 
-def bfs(s, e, d_cnt):
+def bfs(s, e):
     global finished
     queue = deque()
-    queue.append((s, e, d_cnt))
-    visited[s][e] = 1  # 거리 카운팅은 하지 않지만, 방문체크는 해야 함.
+    queue.append((s, e))
+    dis[s][e] = 0  # 시작점: 거리 0 및 방문체크
     while queue:
-        x, y, cnt = queue.popleft()
+        x, y = queue.popleft()
         if x == N-1 and y == N-1:
-            finished = True
-            return cnt
+            return
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
             # 범위 내에 있고, 연결되어 있고, 방문하지 않아야 함
-            if 0 <= nx <= N-1 and 0 <= ny <= N-1 and graph[nx][ny] == 0 and visited[nx][ny] == 0:
-                visited[nx][ny] = 1
-                queue.append((nx, ny, cnt+1))
+            if 0 <= nx <= N-1 and 0 <= ny <= N-1 and graph[nx][ny] == 0 and dis[nx][ny] == -1:
+                dis[nx][ny] = dis[x][y] + 1
+                queue.append((nx, ny))
 
 
 dx = [0, 0, 1, -1]
@@ -48,9 +47,6 @@ if __name__ == '__main__':
     for _ in range(N):
         graph.append(list(map(int, input().split())))
     visited = [[0] * N for _ in range(N)]  # 방문여부 체크
-    finished = False
-    cnt = bfs(0, 0, 0)
-    if finished:
-        print(cnt)
-    else:
-        print(-1)
+    dis = [[-1] * N for _ in range(N)]  # 거리 저장용
+    bfs(0, 0)
+    print(dis[N-1][N-1])
