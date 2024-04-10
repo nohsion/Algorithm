@@ -14,70 +14,40 @@ hs = [(0,1),...]  # 집 위치 리스트
 """
 from collections import deque
 
-
-# 피자배달거리 구하는 bfs 함수
-def bfs_pizza_dis(hs_x, hs_y, pz_list):
-    queue = deque()
-    queue.append((hs_x, hs_y)) # 좌표 xy, 거리
-    dis[hs_x][hs_y] = 0
-    while queue:
-        x, y = queue.popleft()
-        if (x, y) in pz_list:
-            return dis[x][y]
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            # 영역 내에 있고, 방문하지 않았고, 0(빈칸)이라면
-            if 0 <= nx <= n-1 and 0 <= ny <= n-1 and dis[nx][ny] == -1 and graph[nx][ny] != 1:
-                dis[nx][ny] = dis[x][y] + 1
-                queue.append((nx, ny))
-
-
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 
 
 # 피자집 M개 선택하는 dfs 함수 (조합)
 def dfs(L, s):
+    global res
     if L == m:
-        pz_list = []
-        for i in range(pz_cnt):
-            if ch[i] == 1:
-                pz_list.append(pz[i])
-        selected_pz.append(pz_list)
+        d_sum = 0  # 도시 피자배달거리
+        for i in range(len(hs)):
+            hs_x, hs_y = hs[i][0], hs[i][1]
+            dis = 2147000000
+            for j in cb:
+                pz_x, pz_y = pz[j][0], pz[j][1]
+                dis = min(dis, abs(hs_x-pz_x) + abs(hs_y-pz_y))
+            d_sum += dis
+        if d_sum < res:
+            res = d_sum
         return
-    for i in range(s, pz_cnt):
-        ch[i] = 1
+    for i in range(s, len(pz)):
+        cb[L] = i  # 조합 경우에 pz 인덱스를 넣어줌
         dfs(L+1, i+1)
-        ch[i] = 0
 
 
 if __name__ == '__main__':
     n, m = map(int, input().split())
-    graph, hs, pz = [], [], []
-    for i in range(n):
-        graph.append(list(map(int, input().split())))
+    graph = [list(map(int, input().split())) for _ in range(n)]
+    hs, pz, cb = [], [], [0]*m  # 집 좌표, 피자 좌표, 피자 조합 경우
     for i in range(n):
         for j in range(n):
-            if graph[i][j] == 0:
-                continue
             if graph[i][j] == 1:
                 hs.append((i, j))
             elif graph[i][j] == 2:
                 pz.append((i, j))
-    # 피자 M개 조합 선택
-    pz_cnt = len(pz)
-    ch = [0] * pz_cnt
-    selected_pz = []
+    res = 2147000000  # M개의 피자집 선택 경우 중 최소 피자배달거리
     dfs(0, 0)
-
-    # 각 조합의 피자배달거리 계산
-    min_hp = 2147000
-    for sp in selected_pz:
-        hs_to_pz = 0
-        for h in hs:
-            dis = [[-1] * n for _ in range(n)]  # 거리 저장
-            hs_to_pz += bfs_pizza_dis(h[0], h[1], sp)
-        if hs_to_pz < min_hp:
-            min_hp = hs_to_pz
-    print(min_hp)
+    print(res)
