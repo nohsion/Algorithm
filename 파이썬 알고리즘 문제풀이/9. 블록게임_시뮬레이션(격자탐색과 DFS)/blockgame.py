@@ -50,6 +50,28 @@ def DFS(y, x, grid, color):
             DFS(ny, nx, grid, color)
 
 
+def max_height(grid):
+    for y in range(1, 24):
+        for x in range(1, 13):
+            if grid[y][x] > 0:
+                return y
+
+
+def grid_update(grid, blank):
+    # 같은 색깔 블록 제거
+    for y, x in blank:
+        grid[y][x] = 0
+    height = max_height(grid)
+    # 블록을 떨어뜨림 (중력 작용)
+    for y in range(23, height, -1):
+        for x in range(1, 13):
+            if grid[y][x] == 0:
+                tmp_y = y
+                while grid[tmp_y-1][x] == 0 and tmp_y-1 > 0:
+                    tmp_y -= 1
+                grid[y][x] = grid[tmp_y-1][x]
+                grid[tmp_y-1][x] = 0
+
 
 if __name__ == '__main__':
     sc = t.Screen()
@@ -92,7 +114,8 @@ if __name__ == '__main__':
             ch = [[0] * 14 for _ in range(25)]
             blank = []
             DFS(brick.y, brick.x, grid, brick.color)
-            print(len(blank))
+            if len(blank) >= 4:
+                grid_update(grid, blank)
 
             brick = Brick()
 
