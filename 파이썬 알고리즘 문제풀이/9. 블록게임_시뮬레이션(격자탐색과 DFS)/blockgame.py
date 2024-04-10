@@ -3,6 +3,10 @@ import turtle as t
 import random as r
 
 
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+
 class Brick:
     def __init__(self):
         self.y = 0
@@ -32,6 +36,19 @@ def draw_grid(block, grid):
             block.goto(sc_x, sc_y)
             block.color(colors[grid[y][x]])
             block.stamp()
+
+
+def DFS(y, x, grid, color):
+    global ch, blank
+    ch[y][x] = 1
+    blank.append((y, x))
+    for i in range(4):
+        ny = y + dy[i]
+        nx = x + dx[i]
+        # 영역 내에 있고, 같은 색이고, 방문하지 않았다면
+        if 0 < ny <= 23 and 0 < nx <= 13 and grid[ny][nx] == color and ch[ny][nx] == 0:
+            DFS(ny, nx, grid, color)
+
 
 
 if __name__ == '__main__':
@@ -72,6 +89,11 @@ if __name__ == '__main__':
             brick.y += 1
             grid[brick.y][brick.x] = brick.color
         else:
+            ch = [[0] * 14 for _ in range(25)]
+            blank = []
+            DFS(brick.y, brick.x, grid, brick.color)
+            print(len(blank))
+
             brick = Brick()
 
 
