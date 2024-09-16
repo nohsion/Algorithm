@@ -18,17 +18,35 @@ for test_case in range(1, T + 1):
     arr = [list(map(int, input().split())) for _ in range(N)]
 
     ans = mx = sm1 = 0
+    # 메모이제이션 방식
+    mem = [[0]*N for _ in range(N)]
+    # [0] 각 위치의 가능한 최대값을 미리 저장
+    # 동일한 위치(ci,cj)에서 dfs를 호출해서 중복연산 방지
+    for i in range(N):
+        for j in range(N-M+1):
+            mx = 0
+            dfs(0, 0, 0, i, j)
+            mem[i][j] = mx
     # [1] 가능한 모든 시작위치 (일꾼1, 일꾼2)
     for i1 in range(N):
         for j1 in range(N-M+1):
-            mx = 0
-            dfs(0, 0, 0, i1, j1)
-            sm1 = mx
             for i2 in range(i1, N):
                 sj = j1+M if i1==i2 else 0
                 for j2 in range(sj, N-M+1):
-                    mx = 0
-                    dfs(0, 0, 0, i2, j2)
-                    ans = max(ans, sm1+mx)
+                    ans = max(ans, mem[i1][j1]+mem[i2][j2])
+
+    # 백트래킹 방식
+    # # [1] 가능한 모든 시작위치 (일꾼1, 일꾼2)
+    # for i1 in range(N):
+    #     for j1 in range(N-M+1):
+    #         mx = 0
+    #         dfs(0, 0, 0, i1, j1)
+    #         sm1 = mx
+    #         for i2 in range(i1, N):
+    #             sj = j1+M if i1==i2 else 0
+    #             for j2 in range(sj, N-M+1):
+    #                 mx = 0
+    #                 dfs(0, 0, 0, i2, j2)
+    #                 ans = max(ans, sm1+mx)
 
     print(f"#{test_case} {ans}")
